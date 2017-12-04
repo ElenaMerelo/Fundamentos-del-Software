@@ -1,7 +1,12 @@
-# Nombre archivo: makefileG
-# Uso: make -f makefileG
+# Nombre archivo: makefile
+# Uso: make
 # Descripción: Mantiene todas las dependencias entre los módulos y la biblioteca
 #              que utiliza el programa2.
+# $@ se refiere a lo que hay antes de los dos puntos
+# $< se refiere a lo primero que hay después de los dos puntos
+# $^ se refiere a todo lo que hay después de los dos puntos
+# Author: Elena Merelo Molina
+
 
 LIB_DIR=./
 OBJS=main2.o factorial.o hello.o
