@@ -1,0 +1,31 @@
+# Nombre de archivo: makefile4
+# En include están ordenacion.h, array.h y utilities.h
+# En src están los SRC_MODULES
+# Uso: make -f makefile4
+# Autora: Elena Merelo Molina
+
+CC=g++
+INC=./include
+OBJ=./obj
+SRC=./src
+BIN=./bin
+CPPFLAGS= -Wall -g
+SRC_MODULES=ordenacion.cpp array.cpp impresion.cpp
+OBJ_MODULES=$(SRCS:.cpp=.o)
+
+all : $(BIN)/programa
+
+$(BIN)/programa : $(OBJ)/$(OBJ_MODULES)
+	$(CC) $^ -o $@ -I$(INC)
+
+$(OBJ)/ordenacion.o : $(SRC)/ordenacion.cpp $(SRC)/array.cpp
+	$(CC) $(CPPFLAGS) -o $@  -c $^ -I$(INC)
+
+$(OBJ)/array.o : $(SRC)/array.cpp
+	$(CC) $(CPPFLAGS) -o $@ -c $< -I$(INC)
+
+$(OBJ)/impresion.o : $(SRC)/impresion.cpp
+	$(CC) $(CPPFLAGS) -o $@ -c $< -I$(INC)
+
+clean:
+  rm *.o $(BIN)/programa

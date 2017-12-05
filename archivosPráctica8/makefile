@@ -8,19 +8,17 @@
 # Author: Elena Merelo Molina
 
 
-LIB_DIR=./
+LIB=./libs
 OBJS=main2.o factorial.o hello.o
 SRCS=$(OBJS:.o=.cpp)
 INC=./includes
 OPT=-Wall -g
-
-
 OBJS_LIB=sin.o cos.o tan.o
 
 all : programa2
 
-programa2 : $(OBJS) $(LIB_DIR)/libmates.a
-	g++ -o $@ $(OBJS) -lmates -L$(LIB_DIR)
+programa2 : $(OBJS) $(LIB)/libmates.a
+	g++ -o $@ $(OBJS) -lmates -L$(LIB)
 
 programa2.o : $(SRCS)
 	g++ $(OPT) -c $^ -o $(OBJS) -I$(INC)
@@ -32,10 +30,10 @@ factorial.o : factorial.cpp
 	g++ ($OPT) -c $< -o $@ -I$(INC)
 
 hello.o : hello.cpp
-	g++ -c $< -I$(INC)
+	g++ ($OPT) -c $< -o $@ -I$(INC)
 
-libmates.a : $(OBJS_LIB)
-	ar -rvs libmates.a $^
+$(LIB)/libmates.a : $(OBJS_LIB)
+	$(AR) -rvs $(LIB)/libmates.a $^
 
 sin.o : sin.cpp
 	g++ -c $< -I$(INC)

@@ -1,0 +1,21 @@
+# Nombre del archivo: makefile3
+# Uso: make -f makefile3
+# Autora: Elena Merelo Molina
+
+CC=g++
+INC=./cabeceras
+SRCS=main.c stack.c getop.c getch.c
+OBJS=$(SRCS:.c=.o)
+EXE=calculadoraPolaca
+CPPFLAGS=-Wall -I$(INC)
+
+all : $(EXE)
+
+$(EXE) : $(OBJS)
+	$(CC) $^ -o $@
+
+.o : .c
+	$(CC) $(CPPFLAGS) $< -o $@
+
+clean:
+	rm *.o $(EXE)
