@@ -7,7 +7,7 @@
 Además, se verán las siguientes órdenes: `gcc/g++`, `ar`, `make`.
 
 **Ejercicio 8.1.** Pruebe a comentar en el archivo fuente main.cpp la directiva de procesamiento `#include ”functions.h”`. La línea quedaría así: `//#include ”functions.h”`. Pruebe a generar ahora el módulo objeto con la orden de compilación `g++ -c main.cpp`. ¿Qué ha ocurrido?
-**Al compilarlo da el siguiente error: **
+**Al compilarlo da el siguiente error:**
 ~~~
 main.cpp: In function ‘int main()’:
 main.cpp:7:17: error: ‘print_hello’ was not declared in this scope
@@ -19,7 +19,7 @@ main.cpp:9:52: error: ‘factorial’ was not declared in this scope
 **Esto es ya que dichas funciones, `print_hello()` y `factorial(n)` estaban incluidas en el fichero functions.h, y cuando se enlaza no se encuentran.**
 
 **Ejercicio 8.2.** Explique por qué el enlazador no ha podido generar el programa archivo ejecutable programa2 del ejemplo anterior y, sin embargo, ¿por qué sí hemos podido generar el módulo main2.o?
-*Ejemplo anterior: *
+*Ejemplo anterior:*
 ~~~
 g++ -o programa2 main2.o factorial.o hello.o
 main2.o: In function 'main':
@@ -31,7 +31,7 @@ collect2: ld returned 1 exit status
 **Porque no hemos incluido los objetos .o de las funciones del seno, coseno y tangente, los cuales también se pueden incluir mediante una biblioteca. No ocurre esto con el main.o ya que ésta llama a las demás funciones.**
 
 **Ejercicio 8.3.** Explique por qué la orden g++ previa ha fallado. Explique los tipos de errores que ha encontrado.
-**Ejecutamos lo siguiente: **
+**Ejecutamos lo siguiente:**
 ~~~
 $ mkdir includes
 
@@ -50,13 +50,13 @@ compilation terminated.
 **Falla porque hemos movido las librerías a otra carpeta, y la opción -L./ especifica que debe buscar las bibliotecas en la carpeta actual. Al no estar ahí no encuentra la definición de ninguna función.**
 
 **Ejercicio extra** Busque en internet el problema que se puede dar en las reglas virtuales cuando se crea un archivo en el directorio con el mismo nombre de la regla (por ejemplo, clean). ¿Cómo se soluciona?
-**Si existiese un fichero que se llamase “clean” dentro del directorio del Makefile, make consideraría que ese objetivo ya está realizado, y no ejecutaría los comandos asociados: **
+**Si existiese un fichero que se llamase “clean” dentro del directorio del Makefile, make consideraría que ese objetivo ya está realizado, y no ejecutaría los comandos asociados:**
 ~~~
    $ touch clean
    $ make clean
    make: `clean' está actualizado.
 ~~~
-**Ejercicio 8.4.** Copie el contenido del makefile previo a un archivo llamado makefileE ubicado en el mismo directorio en el que están los archivos de código fuente .cpp. Pruebe a modificar distintos archivos .cpp (puede hacerlo usando la orden touch sobre uno o varios de esos archivos) y compruebe la secuencia de instrucciones que se muestra en el terminal al ejecutarse la orden make. ¿Se genera siempre la misma secuencia de órdenes cuando los archivos han sido modificados que cuando no? ¿A qué cree puede deberse tal comportamiento? **No se genera siempre la misma secuencia de órdenes cuandos los archivos han sido modificados ya que se recompilarán dichos archivos. Al hacer `make` la primera vez: **
+**Ejercicio 8.4.** Copie el contenido del makefile previo a un archivo llamado makefileE ubicado en el mismo directorio en el que están los archivos de código fuente .cpp. Pruebe a modificar distintos archivos .cpp (puede hacerlo usando la orden touch sobre uno o varios de esos archivos) y compruebe la secuencia de instrucciones que se muestra en el terminal al ejecutarse la orden make. ¿Se genera siempre la misma secuencia de órdenes cuando los archivos han sido modificados que cuando no? ¿A qué cree puede deberse tal comportamiento? **No se genera siempre la misma secuencia de órdenes cuandos los archivos han sido modificados ya que se recompilarán dichos archivos. Al hacer `make` la primera vez:**
 ~~~
 $ make -f makefileE
 ar -rvs mates.a sin.o cos.o tan.o
@@ -64,7 +64,7 @@ r - sin.o
 r - cos.o
 r - tan.o
 ~~~
-**Al hacer `make` una segunda vez devuelve lo mismo. Si modificamos alguno de los archivos, por ejemplo hello.cpp: **
+**Al hacer `make` una segunda vez devuelve lo mismo. Si modificamos alguno de los archivos, por ejemplo hello.cpp:**
 ~~~
 $ cat hello.cpp
 #include <iostream>
@@ -93,9 +93,9 @@ r - cos.o
 r - tan.o
 g++ -L./ -o programa2 main2.o factorial.o hello.o libmates.a
 ~~~
-**Como vemos solo ha sido necesaria la obtención del archivo objeto hello.o y el posterior enlazado dado que los otros dos archivos objeto ya existían y no han sido modificados sus archivos fuente. **
+**Como vemos solo ha sido necesaria la obtención del archivo objeto hello.o y el posterior enlazado dado que los otros dos archivos objeto ya existían y no han sido modificados sus archivos fuente.**
 
-** Ejercicio 8.6.** Usando como base el archivo makefileG, sustituya la línea de orden de la regla cuyo objetivo es programa2 por otra en la que se use alguna de las variables especiales y cuya ejecución sea equivalente.
+**Ejercicio 8.6.** Usando como base el archivo makefileG, sustituya la línea de orden de la regla cuyo objetivo es programa2 por otra en la que se use alguna de las variables especiales y cuya ejecución sea equivalente.
 ~~~
 # Nombre archivo: makefile
 # Uso: make
@@ -151,7 +151,7 @@ cleanObj :
 cleanLib :
 	rm $(OBJS_LIB) libmates.a
 ~~~
-**Probamos su funcionamiento: **
+**Probamos su funcionamiento:**
 ~~~
 $ make
 ar -rvs libmates.a sin.o cos.o tan.o
@@ -160,8 +160,8 @@ r - cos.o
 r - tan.o
 g++ -o programa2 main2.o factorial.o hello.o -lmates -L./
 ~~~
-** Ejercicio 8.7.** Utilizando como base el archivo makefileG y los archivos fuente asociados, realice los cambios que considere oportunos para que, en la construcción de la biblioteca estática libmates.a, este archivo pase a estar en un subdirectorio denominado libs y se pueda enlazar correctamente con el resto de archivos objeto.
-**Primeramente creamos el directorio libs(`mkdir libs`), y ya dentro del makefile creamos la variable LIB=./libs. Ahoro donde antes ponía libmates.a hemos de poner $(LIB)/libmates.a, lo demás se mantiene igual: **
+**Ejercicio 8.7.** Utilizando como base el archivo makefileG y los archivos fuente asociados, realice los cambios que considere oportunos para que, en la construcción de la biblioteca estática libmates.a, este archivo pase a estar en un subdirectorio denominado libs y se pueda enlazar correctamente con el resto de archivos objeto.
+**Primeramente creamos el directorio libs(`mkdir libs`), y ya dentro del makefile creamos la variable LIB=./libs. Ahoro donde antes ponía libmates.a hemos de poner $(LIB)/libmates.a, lo demás se mantiene igual:**
 ~~~
 # Nombre archivo: makefile
 # Uso: make
@@ -220,7 +220,7 @@ cleanObj :
 cleanLib :
 	rm $(OBJS_LIB) libmates.a
 ~~~
-**Vemos que funciona ya que al escribir en la terminal `make` devuelve: **
+**Vemos que funciona ya que al escribir en la terminal `make` devuelve:**
 ~~~
 ar -rvs ./libs/libmates.a sin.o cos.o tan.o
 ar: creando ./libs/libmates.a
@@ -231,7 +231,7 @@ g++ -o programa2 main2.o factorial.o hello.o -lmates -L./libs
 ~~~
 
 **Ejercicio 8.8.** Busque la variable predefinida de make que almacena la utilidad del sistema que permite construir bibliotecas. Recuerde que la orden para construir una biblioteca estática a partir de una serie de archivos objeto es ar (puede usar la orden grep para filtrar el contenido; no vaya a leer línea a línea toda la salida). Usando el archivo makefileG, sustituya la orden ar por su variable correspondiente.
-**Ejecuto en la terminal `make -p|grep "ar"` y encuentro que hay una variable predefinida para definir bibliotecas: `AR = ar`. Así, en el makefile anterior solo hay que cambiar la parte correspondiente a la creación de la librería: **  
+**Ejecuto en la terminal `make -p|grep "ar"` y encuentro que hay una variable predefinida para definir bibliotecas: `AR = ar`. Así, en el makefile anterior solo hay que cambiar la parte correspondiente a la creación de la librería:**  
 ~~~
 $(LIB)/libmates.a : $(OBJS_LIB)
 	$(AR) -rvs $(LIB)/libmates.a $^
